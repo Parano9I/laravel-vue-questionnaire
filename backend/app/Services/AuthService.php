@@ -4,16 +4,24 @@ namespace App\Services;
 
 use App\Contracts\IAuthService;
 use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Auth;
 
 class AuthService implements IAuthService
 {
 
-    public function login(array $credentials): string
+    public function login(array $credentials): User
     {
-        // TODO: Implement login() method.
+        if(!Auth::attempt($credentials)){
+            throw new AuthenticationException();
+        }
+
+        $user = User::where(['email' => $credentials['email']])->first();
+
+        return $user;
     }
 
-    public function loginByUser(User $user): string
+    public function createToken(User $user): string
     {
         $token = $user->createToken($this->generateUniqueHex());
 

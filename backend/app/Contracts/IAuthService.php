@@ -6,7 +6,7 @@ use App\Models\User;
 
 interface IAuthService
 {
-    public function login(array $credentials):string;
+    public function login(array $credentials): User;
 
-    public function loginByUser(User $user):string;
+    public function createToken(User $user): string;
 }

@@ -22,7 +22,7 @@ class UserController extends Controller
         try {
             $data = $request->toArray();
             $user = $this->userService->create($data);
-            $token = $this->authService->loginByUser($user);
+            $token = $this->authService->createToken($user);
         } catch (Error $error) {
             return response()->json([
                 'status' => 'error',
@@ -39,6 +39,6 @@ class UserController extends Controller
                     'access_token' => $token
                 ]
             ]
-        ]);
+        ], 200);
     }
 }
