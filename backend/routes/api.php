@@ -4,10 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function () {
-    dd(1);
-})->middleware(['auth:sanctum', 'role:ROLE_USER']);
-
 Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::post('/', 'store')->middleware('guest')->name('users.store');
 });
