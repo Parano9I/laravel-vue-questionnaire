@@ -13,7 +13,7 @@ class AuthService implements IAuthService
     public function login(array $credentials): User
     {
         if(!Auth::attempt($credentials)){
-            throw new AuthenticationException();
+            throw new AuthenticationException('Incorrect email or password');
         }
 
         $user = User::where(['email' => $credentials['email']])->first();
@@ -26,6 +26,11 @@ class AuthService implements IAuthService
         $token = $user->createToken($this->generateUniqueHex());
 
         return $token->plainTextToken;
+    }
+
+    public function revokeAccessToken(User $user): void
+    {
+        $user->currentAccessToken()->delete();
     }
 
     private function generateUniqueHex():string{
