@@ -15,10 +15,10 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->middleware('auth:sanctum')->name('auth.logout');
 });
 
-Route::prefix('questionnaire')->controller(QuestionnaireController::class)->group(function () {
-    Route::get('/', 'index')->name('questionnaire.index');
+Route::prefix('questionnaires')->controller(QuestionnaireController::class)->group(function () {
+    Route::get('/', 'index')->name('questionnaires.index');
 
     Route::controller(QuestionController::class)->group(function () {
-        Route::get('{questionnaireId}/questions', 'index')->name('questionnaire.questions.index');
+        Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
     });
 });

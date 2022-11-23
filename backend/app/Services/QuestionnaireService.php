@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class QuestionnaireService implements IQuestionnaireService
 {
-
-
     public function getAll(): Collection
     {
         return Questionnaire::all();
@@ -18,5 +16,10 @@ class QuestionnaireService implements IQuestionnaireService
     public function create(array $data): void
     {
 
+    }
+
+    public function getById(int $id): Questionnaire
+    {
+        return Questionnaire::query()->findOrFail($id)->first();
     }
 }

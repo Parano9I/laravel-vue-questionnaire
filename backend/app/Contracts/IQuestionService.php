@@ -4,12 +4,11 @@ namespace App\Contracts;
 
 use App\Models\Questionnaire;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-interface IQuestionnaireService
+interface IQuestionService
 {
-    public function getAll():Collection;
-
-    public function getById(int $id):Questionnaire;
+    public function getAll(Questionnaire $questionnaire):LengthAwarePaginator;
 
     public function create(array $data):void;
 }
