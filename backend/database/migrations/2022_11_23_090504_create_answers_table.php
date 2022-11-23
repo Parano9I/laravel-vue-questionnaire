@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->integer('point')->default(0);
             $table->foreignId('question_id')->constrained('questions');
             $table->foreignId('user_id')->constrained('users');
+            $table->timestamps();
         });
     }
 
