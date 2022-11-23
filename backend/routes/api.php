@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,10 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->middleware('auth:sanctum')->name('auth.logout');
 });
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::prefix('questionnaire')->controller(QuestionnaireController::class)->group(function () {
+    Route::get('/', 'index')->name('questionnaire.index');
+
+    Route::controller(QuestionController::class)->group(function () {
+        Route::get('{questionnaireId}/questions', 'index')->name('questionnaire.questions.index');
+    });
+});
