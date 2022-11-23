@@ -13,6 +13,7 @@ class UserService implements IUserService
     public function create(array $data): User
     {
         $user = new User();
+
         $roleUser = Role::where(['name' => 'ROLE_USER'])->firstOrFail();
 
         $user->name = $data['name'];
