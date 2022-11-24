@@ -1,12 +1,11 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/test', function () {
-    dd(1);
-})->middleware(['auth:sanctum', 'role:ROLE_USER']);
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::post('/', 'store')->middleware('guest')->name('users.store');
@@ -17,6 +16,14 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->middleware('auth:sanctum')->name('auth.logout');
 });
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::prefix('questionnaires')->controller(QuestionnaireController::class)->group(function () {
+    Route::get('/', 'index')->name('questionnaires.index');
+
+    Route::controller(QuestionController::class)->group(function () {
+        Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
+    });
+
+    Route::controller(AnswerController::class)->group(function () {
+        Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answer.store.all');
+    });
+});

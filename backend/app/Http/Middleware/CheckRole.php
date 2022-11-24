@@ -19,7 +19,7 @@ class CheckRole
     {
         $user = Auth::user();
 
-        if ($user->hasRole($roleName)) {
+        if ($user->hasRole($roleName) || $user->hasRole('ROLE_ADMIN')) {
             return $next($request);
         }
 

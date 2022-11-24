@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\IAuthService;
+use App\Exceptions\UserNotFoundException;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class AuthService implements IAuthService
     public function login(array $credentials): User
     {
         if(!Auth::attempt($credentials)){
-            throw new AuthenticationException('Incorrect email or password');
+            throw new UserNotFoundException('Incorrect email or password');
         }
 
         $user = User::where(['email' => $credentials['email']])->first();
