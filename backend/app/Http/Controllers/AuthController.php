@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Contracts\IAuthService;
 use App\Http\Requests\LoginAuthRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -18,16 +17,9 @@ class AuthController extends Controller
 
     public function login(LoginAuthRequest $request)
     {
-        try {
-            $credentials = $request->only(['email', 'password']);
-            $user = $this->authService->login($credentials);
-            $token = $this->authService->createToken($user);
-        } catch (AuthenticationException $error) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $error->getMessage()
-            ], 401);
-        }
+        $credentials = $request->only(['email', 'password']);
+        $user = $this->authService->login($credentials);
+        $token = $this->authService->createToken($user);
 
         return response()->json([
             'status' => 'success',
