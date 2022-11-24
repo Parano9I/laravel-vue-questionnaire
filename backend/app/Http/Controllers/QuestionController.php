@@ -7,7 +7,6 @@ use App\Contracts\IQuestionService;
 use App\Http\Resources\PaginationResource;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\QuestioonnaireResource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -21,11 +20,8 @@ class QuestionController extends Controller
 
     public function index(Request $request, $questionnaireId)
     {
-        try {
-            $questionnaire = $this->questionnaireService->getById($questionnaireId);
-            $questions = $this->questionService->getAll($questionnaire);
-        } catch (ModelNotFoundException $exception) {
-        }
+        $questionnaire = $this->questionnaireService->getById($questionnaireId);
+        $questions = $this->questionService->getAll($questionnaire);
 
         return response()->json([
             'status' => 'access',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionnaireController;
@@ -20,5 +21,9 @@ Route::prefix('questionnaires')->controller(QuestionnaireController::class)->gro
 
     Route::controller(QuestionController::class)->group(function () {
         Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
+    });
+
+    Route::controller(AnswerController::class)->group(function () {
+        Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answer.store.all');
     });
 });

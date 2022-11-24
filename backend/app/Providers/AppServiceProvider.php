@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\IAnswerService;
 use App\Contracts\IAuthService;
 use App\Contracts\IQuestionnaireService;
 use App\Contracts\IQuestionService;
 use App\Contracts\IUserService;
+use App\Services\AnswerService;
 use App\Services\AuthService;
 use App\Services\QuestionnaireService;
 use App\Services\QuestionService;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IAuthService::class, AuthService::class);
         $this->app->bind(IQuestionnaireService::class, QuestionnaireService::class);
         $this->app->bind(IQuestionService::class, QuestionService::class);
+        $this->app->bind(IAnswerService::class, AnswerService::class);
     }
 
     /**
