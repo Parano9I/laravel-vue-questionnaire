@@ -1,9 +1,10 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="site-container d-flex flex-column">
+    <header-component />
+    <main class="flex-grow-1">
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <style lang="scss">
@@ -14,17 +15,13 @@
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.site-container {
+  min-height: 100vh;
 }
 </style>
+<script>
+import HeaderComponent from "@/components/parts/HeaderComponent";
+export default {
+  components: { HeaderComponent },
+};
+</script>
