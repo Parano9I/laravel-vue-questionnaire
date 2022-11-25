@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <container-component>
+    <div class="d-flex flex-column align-items-start">
+      <h1 class="">Questionnaires</h1>
+      <ul class="w-100 list-group d-flex flex-column align-items-stretch">
+        <li class="list-group-item d-flex align-items-start">
+          <router-link
+            to="/questionnaire/1"
+            class="h3 m-0 text-decoration-none"
+          >
+            Geography
+          </router-link>
+        </li>
+      </ul>
+    </div>
+  </container-component>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import ContainerComponent from "@/components/Container/ContainerComponent.vue";
 
 export default defineComponent({
   name: "HomeView",
-  components: {
-    HelloWorld,
-  },
+  components: { ContainerComponent },
 });
 </script>
