@@ -5,6 +5,8 @@
       :type="fieldType"
       :name="name"
       :id="name"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       class="form-control"
     />
@@ -34,7 +36,15 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    modelValue: {
+      type: [String, Number],
+    },
   },
+  // methods: {
+  //   updateValue(event: Event<HTMLInputElement>) {
+  //     this.$emit("update:modelValue", event.target.value);
+  //   },
+  // },
 });
 </script>
 

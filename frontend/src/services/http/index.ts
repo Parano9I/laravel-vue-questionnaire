@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:8080/api",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -9,12 +9,10 @@ const httpClient = axios.create({
 });
 
 httpClient.interceptors.request.use((config) => {
-  NProgress.start();
   return config;
 });
 
 httpClient.interceptors.response.use((response) => {
-  NProgress.done();
   return response;
 });
 
