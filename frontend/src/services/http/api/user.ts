@@ -1,8 +1,15 @@
 import httpClient from "@/services/http";
-import { CreateUserParams } from "@/services/http/models/userModel";
+import {
+  CreateUserParams,
+  LoginParams,
+} from "@/services/http/models/userModel";
 
 const createUserApi = (params: CreateUserParams) => {
   return httpClient.post("/users", params);
 };
 
-export { createUserApi };
+const loginApi = (params: LoginParams) => {
+  return httpClient.post("/auth/login", params);
+};
+
+export { createUserApi, loginApi };

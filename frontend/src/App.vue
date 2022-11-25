@@ -21,7 +21,13 @@
 </style>
 <script>
 import HeaderComponent from "@/components/parts/HeaderComponent";
+import { useStore } from "vuex";
+
 export default {
   components: { HeaderComponent },
+  beforeCreate() {
+    const store = useStore();
+    store.commit("loadStore");
+  },
 };
 </script>
