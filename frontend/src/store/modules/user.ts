@@ -32,6 +32,9 @@ const UserModuleStore: Module<UserState, any> = {
     getUser(state: UserState) {
       return state.user;
     },
+    getToken(state: UserState): string | null {
+      return state.user.token;
+    },
     getError(state: UserState) {
       return state.errors;
     },

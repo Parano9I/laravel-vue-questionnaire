@@ -16,14 +16,15 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->middleware('auth:sanctum')->name('auth.logout');
 });
 
-Route::prefix('questionnaires')->controller(QuestionnaireController::class)->group(function () {
-    Route::get('/', 'index')->name('questionnaires.index');
+Route::prefix('questionnaires')->middleware(['auth:sanctum', 'role:ROLE_USER'])
+    ->controller(QuestionnaireController::class)->group(function () {
+        Route::get('/', 'index')->name('questionnaires.index');
 
-    Route::controller(QuestionController::class)->group(function () {
-        Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
-    });
+        Route::controller(QuestionController::class)->group(function () {
+            Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
+        });
 
-    Route::controller(AnswerController::class)->group(function () {
-        Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answer.store.all');
+        Route::controller(AnswerController::class)->group(function () {
+            Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answer.store.all');
+        });
     });
-});

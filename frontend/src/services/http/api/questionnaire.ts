@@ -1,4 +1,6 @@
 import httpClient from "@/services/http";
+import { AnswerInterface } from "@/interfaces/answers";
+import { PostAnswersParams } from "@/services/http/models/questionnaireModel";
 
 const url = "/questionnaires";
 
@@ -10,4 +12,8 @@ const getQuestionnaireQuests = (id: number, page: number) => {
   return httpClient.get(`${url}/${id}/questions`, { params: { page } });
 };
 
-export { getAll, getQuestionnaireQuests };
+const postAnswers = (params: PostAnswersParams, questionnaireId: number) => {
+  return httpClient.post(`${url}/${questionnaireId}/answer`, params);
+};
+
+export { getAll, getQuestionnaireQuests, postAnswers };

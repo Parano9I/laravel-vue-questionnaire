@@ -25,6 +25,9 @@
             Next
           </router-link>
         </button-component>
+        <button-component v-if="isShowFinishButton" v-on:click="handleSubmit"
+          >Finish</button-component
+        >
       </div>
     </div>
   </container-component>
@@ -38,7 +41,6 @@ import ButtonComponent from "@/components/UI/Button/ButtonComponent.vue";
 import * as questionnaireApi from "@/services/http/api/questionnaire";
 import router from "@/router";
 import { useStore } from "vuex";
-import { AnswerInterface } from "@/interfaces/answers";
 
 export default defineComponent({
   name: "QuestionnaireView",
@@ -50,6 +52,7 @@ export default defineComponent({
       questionnaireId: -1,
       page: 1,
       maxPage: 1,
+      questionsTotal: 0,
     };
   },
   async mounted() {
@@ -63,6 +66,9 @@ export default defineComponent({
     },
     isShowPrevButton(): boolean {
       return this.page > 1;
+    },
+    isShowFinishButton(): boolean {
+      return this.page === this.maxPage;
     },
   },
   methods: {
@@ -100,7 +106,15 @@ export default defineComponent({
         const { questionnaire, questions, pagination } = res.data.data;
 
         this.maxPage = pagination.lastPage;
+        this.questionsTotal = pagination.total;
         this.questions = questions;
+      }
+    },
+    async handleSubmit() {
+      if (this.store.getters.getAnswersCount < this.questionsTotal) {
+        alert("Error count answers < total");
+      } else {
+        this.store.dispatch("potsAnswers");
       }
     },
   },

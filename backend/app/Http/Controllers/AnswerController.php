@@ -19,6 +19,7 @@ class AnswerController extends Controller
     {
         $user = $request->user();
         $data = $request->toArray();
+
         $questionnaire = $this->questionnaireService->getById($questionnaireId);
         $this->answerService->createAll($questionnaire, $user, $data);
 

@@ -1,5 +1,6 @@
 import { Module } from "vuex";
 import { AnswerInterface } from "@/interfaces/answers";
+import * as questionnaireApi from "@/services/http/api/questionnaire";
 
 interface AnswersState {
   questionnaireId: number | null;
@@ -14,6 +15,9 @@ const answersModuleStore: Module<AnswersState, any> = {
   getters: {
     getAnswers(state: AnswersState): AnswerInterface[] {
       return state.answers;
+    },
+    getAnswersCount(state: AnswersState): number {
+      return state.answers.length;
     },
     getAnswerById(state: AnswersState): (id: number) => AnswerInterface | null {
       return (id: number): AnswerInterface | null => {
@@ -61,6 +65,15 @@ const answersModuleStore: Module<AnswersState, any> = {
         commit("updateAnswer", payload);
       } else {
         commit("addAnswer", payload);
+      }
+    },
+    async potsAnswers({ commit, getters }) {
+      try {
+        const params = { answers: getters.getAnswers };
+        const questionnaireId = getters.getQuestionnaireId;
+        const res = questionnaireApi.postAnswers(params, questionnaireId);
+      } catch (error) {
+        console.log(error);
       }
     },
   },
