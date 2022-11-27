@@ -4,16 +4,16 @@ import {
   LoginParams,
 } from "@/services/http/models/userModel";
 
-const createUserApi = (params: CreateUserParams) => {
+const create = (params: CreateUserParams) => {
   return httpClient.post("/users", params);
 };
 
-const loginApi = (params: LoginParams) => {
+const login = (params: LoginParams) => {
   return httpClient.post("/auth/login", params);
 };
 
-const logoutApi = () => {
+const logout = () => {
   return httpClient.get("/auth/logout");
 };
 
-export { createUserApi, loginApi, logoutApi };
+export { create, login, logout };

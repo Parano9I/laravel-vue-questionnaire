@@ -1,4 +1,4 @@
-import { createUserApi, loginApi, logoutApi } from "@/services/http/api/user";
+import * as userApi from "@/services/http/api/user";
 import {
   CreateUserParams,
   LoginParams,
@@ -68,7 +68,7 @@ const UserModuleStore: Module<UserState, any> = {
   actions: {
     async userCreate({ commit }, payload: CreateUserParams) {
       try {
-        const res = await createUserApi(payload);
+        const res = await userApi.create(payload);
         const data: UserResponseModel = res.data;
         const { user, tokens } = data.data;
         const token = tokens.access_token;
@@ -84,7 +84,7 @@ const UserModuleStore: Module<UserState, any> = {
     },
     async login({ commit }, payload: LoginParams) {
       try {
-        const res = await loginApi(payload);
+        const res = await userApi.login(payload);
         const data: UserResponseModel = res.data;
         const { user, tokens } = data.data;
         const token = tokens.access_token;
@@ -100,7 +100,7 @@ const UserModuleStore: Module<UserState, any> = {
     },
     async logout({ commit }) {
       try {
-        const res = await logoutApi();
+        const res = await userApi.logout();
 
         commit("resetErrors");
         commit("resetUser");
