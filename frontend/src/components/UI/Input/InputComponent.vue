@@ -40,11 +40,6 @@ export default defineComponent({
       type: [String, Number],
     },
   },
-  // methods: {
-  //   updateValue(event: Event<HTMLInputElement>) {
-  //     this.$emit("update:modelValue", event.target.value);
-  //   },
-  // },
 });
 </script>
 

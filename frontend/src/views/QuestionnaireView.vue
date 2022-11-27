@@ -3,9 +3,10 @@
     <h1>Geography</h1>
     <ul class="w-100 list-group d-flex flex-column align-items-stretch">
       <template v-for="question in questions" :key="question.id">
-        <question-item :question-id="question.id">{{
-          question.body
-        }}</question-item>
+        <question-item
+          :question-id="question.id"
+          :question-text="question.body"
+        />
       </template>
     </ul>
     <div class="d-flex align-items-center justify-content-between py-2">
@@ -36,12 +37,15 @@ import QuestionItem from "@/components/Question/QuestionItem/QuestionItem.vue";
 import ButtonComponent from "@/components/UI/Button/ButtonComponent.vue";
 import * as questionnaireApi from "@/services/http/api/questionnaire";
 import router from "@/router";
+import { useStore } from "vuex";
+import { AnswerInterface } from "@/interfaces/answers";
 
 export default defineComponent({
   name: "QuestionnaireView",
-  components: { ButtonComponent, QuestionItem, ContainerComponent },
+  components: { QuestionItem, ButtonComponent, ContainerComponent },
   data() {
     return {
+      store: useStore(),
       questions: [],
       questionnaireId: -1,
       page: 1,
@@ -82,6 +86,7 @@ export default defineComponent({
 
       if (urlParamId && !Array.isArray(urlParamId)) {
         this.questionnaireId = parseInt(urlParamId);
+        this.store.dispatch("setQuestionnaireId", this.questionnaireId);
       }
 
       if (this.questionnaireId === -1) router.push({ name: "home" });

@@ -4,6 +4,8 @@
       class="form-control"
       :placeholder="label"
       :name="name"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
       id="floatingTextarea2"
       style="min-height: 100px"
     ></textarea>
@@ -24,6 +26,9 @@ export default defineComponent({
     label: {
       type: String,
       required: true,
+    },
+    modelValue: {
+      type: [String],
     },
   },
 });

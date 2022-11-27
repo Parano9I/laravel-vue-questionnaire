@@ -1,10 +1,12 @@
 import { createStore } from "vuex";
 import userModuleStore from "./modules/user";
 import localStorageSevice from "@/services/localStorageSevice";
+import answersModuleStore from "@/store/modules/answers";
 
 export default createStore({
   modules: {
     user: userModuleStore,
+    answers: answersModuleStore,
   },
   mutations: {
     loadStore() {
