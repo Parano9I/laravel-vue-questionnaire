@@ -66,10 +66,6 @@ export default defineComponent({
       formData.append("email", this.form.email);
       formData.append("password", this.form.password);
       this.store.dispatch("login", formData);
-
-      if (this.isSaveUser()) {
-        this.$router.push({ name: "home" });
-      }
     },
     isSaveUser(): boolean {
       return !!this.store.state.user.id;

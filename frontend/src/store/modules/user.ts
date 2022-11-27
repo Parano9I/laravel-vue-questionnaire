@@ -1,11 +1,12 @@
-import { createUserApi, loginApi } from "@/services/http/api/user";
+import { createUserApi, loginApi, logoutApi } from "@/services/http/api/user";
 import {
   CreateUserParams,
   LoginParams,
   UserResponseModel,
 } from "@/services/http/models/userModel";
 import { Module } from "vuex";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import router from "@/router";
 
 interface UserState {
   user: {
@@ -14,7 +15,7 @@ interface UserState {
     email: string | null;
     token: string | null;
   };
-  errors: any;
+  errors: string | null | object;
 }
 
 const UserModuleStore: Module<UserState, any> = {
@@ -52,6 +53,17 @@ const UserModuleStore: Module<UserState, any> = {
           break;
       }
     },
+    resetErrors(state: UserState): void {
+      state.errors = null;
+    },
+    resetUser(state: UserState): void {
+      state.user = {
+        id: null,
+        name: null,
+        email: null,
+        token: null,
+      };
+    },
   },
   actions: {
     async userCreate({ commit }, payload: CreateUserParams) {
@@ -62,7 +74,9 @@ const UserModuleStore: Module<UserState, any> = {
         const token = tokens.access_token;
 
         commit("setUser", { ...user, token });
-        commit("setError", null);
+        commit("resetErrors");
+
+        await router.push({ name: "home" });
       } catch (error: any) {
         const errorResp: AxiosResponse = error.response;
         commit("setError", errorResp);
@@ -76,10 +90,22 @@ const UserModuleStore: Module<UserState, any> = {
         const token = tokens.access_token;
 
         commit("setUser", { ...user, token });
-        commit("setError", null);
+        commit("resetErrors");
+
+        await router.push({ name: "home" });
       } catch (error: any) {
         const errorResp: AxiosResponse = error.response;
         commit("setError", errorResp);
+      }
+    },
+    async logout({ commit }) {
+      try {
+        const res = await logoutApi();
+
+        commit("resetErrors");
+        commit("resetUser");
+      } catch (e) {
+        console.log(e);
       }
     },
   },

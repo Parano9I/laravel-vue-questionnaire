@@ -12,4 +12,8 @@ const loginApi = (params: LoginParams) => {
   return httpClient.post("/auth/login", params);
 };
 
-export { createUserApi, loginApi };
+const logoutApi = () => {
+  return httpClient.get("/auth/logout");
+};
+
+export { createUserApi, loginApi, logoutApi };

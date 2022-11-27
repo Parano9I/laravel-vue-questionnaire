@@ -81,10 +81,6 @@ export default defineComponent({
       formData.append("password_confirmation", this.form.confirmedPassword);
 
       this.store.dispatch("userCreate", formData);
-
-      if (this.isSaveUser()) {
-        this.$router.push({ name: "home" });
-      }
     },
     isSaveUser(): boolean {
       return !!this.store.state.user.id;
