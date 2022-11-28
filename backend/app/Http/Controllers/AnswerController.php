@@ -34,8 +34,7 @@ class AnswerController extends Controller
 
     public function indexResult(Request $request, $questionnaireId)
     {
-//        $user = $request->user();
-        $user = User::query()->findOrFail(9);
+        $user = $request->user();
         $questionnaire = $this->questionnaireService->getById($questionnaireId);
 
         $data = $this->answerService->getResult($questionnaire, $user);

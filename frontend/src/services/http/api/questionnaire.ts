@@ -16,4 +16,8 @@ const postAnswers = (params: PostAnswersParams, questionnaireId: number) => {
   return httpClient.post(`${url}/${questionnaireId}/answer`, params);
 };
 
-export { getAll, getQuestionnaireQuests, postAnswers };
+const getResult = (questionnaireId: number) => {
+  return httpClient.get(`${url}/${questionnaireId}/result`);
+};
+
+export { getAll, getQuestionnaireQuests, postAnswers, getResult };

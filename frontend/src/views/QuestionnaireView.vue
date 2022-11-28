@@ -39,8 +39,8 @@ import ContainerComponent from "@/components/Container/ContainerComponent.vue";
 import QuestionItem from "@/components/Question/QuestionItem/QuestionItem.vue";
 import ButtonComponent from "@/components/UI/Button/ButtonComponent.vue";
 import * as questionnaireApi from "@/services/http/api/questionnaire";
-import router from "@/router";
 import { useStore } from "vuex";
+import useGetQuestionnaireId from "@/hooks/getQuestionnaireIdHook";
 
 export default defineComponent({
   name: "QuestionnaireView",
@@ -56,7 +56,10 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.setQuestionnaireId();
+    useGetQuestionnaireId((id) => {
+      this.questionnaireId = id;
+      this.store.dispatch("setQuestionnaireId", this.questionnaireId);
+    });
     this.page = this.setCurrentPage();
     await this.getQuests();
   },
@@ -87,16 +90,6 @@ export default defineComponent({
       this.page--;
       this.addParamsToLocation("page", this.page.toString());
     },
-    setQuestionnaireId(): void {
-      const urlParamId = this.$route.params.id;
-
-      if (urlParamId && !Array.isArray(urlParamId)) {
-        this.questionnaireId = parseInt(urlParamId);
-        this.store.dispatch("setQuestionnaireId", this.questionnaireId);
-      }
-
-      if (this.questionnaireId === -1) router.push({ name: "home" });
-    },
     async getQuests() {
       if (this.questionnaireId) {
         const res = await questionnaireApi.getQuestionnaireQuests(
@@ -114,7 +107,7 @@ export default defineComponent({
       if (this.store.getters.getAnswersCount < this.questionsTotal) {
         alert("Error count answers < total");
       } else {
-        this.store.dispatch("potsAnswers");
+        await this.store.dispatch("potsAnswers");
       }
     },
   },

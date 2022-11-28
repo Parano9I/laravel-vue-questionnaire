@@ -27,7 +27,7 @@ Route::prefix('questionnaires')->controller(QuestionController::class)
     });
 
 Route::prefix('questionnaires')->controller(AnswerController::class)
-    ->middleware([])->group(function () {
+    ->middleware(['auth:sanctum', 'role:ROLE_USER'])->group(function () {
         Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answers.store.all');
         Route::get('{questionnaireId}/result', 'indexResult')->name('questionnaires.answers.index.result');
     });

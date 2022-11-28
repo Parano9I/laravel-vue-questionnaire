@@ -72,6 +72,7 @@ const answersModuleStore: Module<AnswersState, any> = {
         const params = { answers: getters.getAnswers };
         const questionnaireId = getters.getQuestionnaireId;
         const res = questionnaireApi.postAnswers(params, questionnaireId);
+        commit("resetAnswers");
       } catch (error) {
         console.log(error);
       }
