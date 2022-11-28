@@ -16,15 +16,18 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout')->middleware('auth:sanctum')->name('auth.logout');
 });
 
-Route::prefix('questionnaires')->middleware(['auth:sanctum', 'role:ROLE_USER'])
-    ->controller(QuestionnaireController::class)->group(function () {
+Route::prefix('questionnaires')->controller(QuestionnaireController::class)
+    ->middleware(['auth:sanctum', 'role:ROLE_USER'])->group(function () {
         Route::get('/', 'index')->name('questionnaires.index');
+    });
 
-        Route::controller(QuestionController::class)->group(function () {
-            Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
-        });
+Route::prefix('questionnaires')->controller(QuestionController::class)
+    ->middleware(['auth:sanctum', 'role:ROLE_USER'])->group(function () {
+        Route::get('{questionnaireId}/questions', 'index')->name('questionnaires.questions.index');
+    });
 
-        Route::controller(AnswerController::class)->group(function () {
-            Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answer.store.all');
-        });
+Route::prefix('questionnaires')->controller(AnswerController::class)
+    ->middleware([])->group(function () {
+        Route::post('{questionnaireId}/answer', 'storeAll')->name('questionnaires.answers.store.all');
+        Route::get('{questionnaireId}/result', 'indexResult')->name('questionnaires.answers.index.result');
     });

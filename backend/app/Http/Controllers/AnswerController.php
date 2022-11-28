@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Contracts\IAnswerService;
 use App\Contracts\IQuestionnaireService;
 use App\Http\Requests\StoreAllAnswerRequest;
+use App\Http\Resources\QuestionnaireResource;
+use App\Http\Resources\QuestionWithAnswerResource;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
@@ -25,6 +29,23 @@ class AnswerController extends Controller
 
         return response()->json([
             'status' => 'success'
+        ]);
+    }
+
+    public function indexResult(Request $request, $questionnaireId)
+    {
+//        $user = $request->user();
+        $user = User::query()->findOrFail(9);
+        $questionnaire = $this->questionnaireService->getById($questionnaireId);
+
+        $data = $this->answerService->getResult($questionnaire, $user);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'questionnaire' => new QuestionnaireResource($questionnaire),
+                'answers' => QuestionWithAnswerResource::collection($data),
+            ]
         ]);
     }
 }
