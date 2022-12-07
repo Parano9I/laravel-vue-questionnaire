@@ -17,7 +17,7 @@ USER node
 WORKDIR /var/www/
 RUN chown -R node:node /var/www
 
-COPY --chown=node:node ../../frontend/package*.json ./
+COPY --chown=node:node ../../package*.json ./
 
 RUN npm install
 
