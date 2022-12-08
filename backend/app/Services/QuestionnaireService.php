@@ -15,6 +15,13 @@ class QuestionnaireService implements IQuestionnaireService
         return Questionnaire::all();
     }
 
+    public function getAllByUser(): Collection
+    {
+        $data = Questionnaire::all();
+
+        return $data;
+    }
+
     public function create(array $data): void
     {
     }

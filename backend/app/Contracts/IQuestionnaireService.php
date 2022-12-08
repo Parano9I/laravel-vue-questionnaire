@@ -9,6 +9,8 @@ interface IQuestionnaireService
 {
     public function getAll():Collection;
 
+    public function getAllByUser():Collection;
+
     public function getById(int $id):Questionnaire;
 
     public function create(array $data):void;

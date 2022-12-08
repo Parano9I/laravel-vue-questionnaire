@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
 //            UserSeeder::class,
 //            QuestionnaireSeeder::class,
 //            QuestionSeeder::class,
-            AnswerSeeder::class
+//            AnswerSeeder::class
+            QuestionnaireResultSeeder::class
         ]);
     }
 }
