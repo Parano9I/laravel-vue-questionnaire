@@ -6,7 +6,7 @@ use App\Contracts\IQuestionnaireService;
 use App\Contracts\IQuestionService;
 use App\Http\Resources\PaginationResource;
 use App\Http\Resources\QuestionResource;
-use App\Http\Resources\QuestioonnaireResource;
+use App\Http\Resources\QuestionnaireResource;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -26,7 +26,7 @@ class QuestionController extends Controller
         return response()->json([
             'status' => 'access',
             'data' => [
-                'questionnaire' => new QuestioonnaireResource($questionnaire),
+                'questionnaire' => new QuestionnaireResource($questionnaire),
                 'questions' => QuestionResource::collection($questions),
                 'pagination' => [
                     'currentPage' => $questions->currentPage(),

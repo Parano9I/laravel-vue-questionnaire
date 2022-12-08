@@ -44,12 +44,12 @@ class User extends Authenticatable
 
     public function hasRole(string $name)
     {
-        return $name === $this->role()->name;
+        return $name === $this->role()->first()->name;
     }
 
     public function role()
     {
-        return $this->belongsTo(Role::class)->first();
+        return $this->belongsTo(Role::class);
     }
 
     public function answers(){

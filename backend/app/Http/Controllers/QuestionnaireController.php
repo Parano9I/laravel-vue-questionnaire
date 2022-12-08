@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\IQuestionnaireService;
-use App\Http\Resources\QuestioonnaireResource;
+use App\Http\Resources\QuestionnaireResource;
 
 class QuestionnaireController extends Controller
 {
@@ -19,7 +19,7 @@ class QuestionnaireController extends Controller
 
         return response()->json([
             'status' => 'access',
-            'data' => QuestioonnaireResource::collection($data),
+            'data' => QuestionnaireResource::collection($data),
         ]);
     }
 }

@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import QuestionnaireView from "../views/QuestionnaireView.vue";
+import QuestionnaireResultView from "@/views/QuestionnaireResultView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/questionnaire/:id",
     name: "questionnaire",
     component: QuestionnaireView,
+  },
+  {
+    path: "/questionnaire/:id/result",
+    name: "questionnaire.result",
+    component: QuestionnaireResultView,
   },
 ];
 

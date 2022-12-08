@@ -13,7 +13,7 @@ class StoreAllAnswerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,9 @@ class StoreAllAnswerRequest extends FormRequest
         //TODO
 
         return [
-            'answers' => 'required'
+            'answers' => 'required',
+            'answers.*.questionId' => 'required|integer|distinct|exists:questions,id',
+            'answers.*.answer' => 'required|string',
         ];
     }
 }

@@ -18,6 +18,10 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function answersAvg(){
+        return $this->hasMany(Answer::class)->avg('point');
+    }
+
     public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class)->first();
