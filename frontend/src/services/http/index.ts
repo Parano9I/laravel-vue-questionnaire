@@ -34,7 +34,7 @@ httpClient.interceptors.response.use(
 
       switch (error.response.status) {
         case 401:
-          store.commit("logout");
+          store.dispatch("logout");
           if (currentRoute.path !== "/auth/login") {
             router.push({ name: "login" });
           }

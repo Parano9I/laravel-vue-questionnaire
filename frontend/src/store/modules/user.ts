@@ -107,6 +107,8 @@ const UserModuleStore: Module<UserState, any> = {
 
         commit("resetErrors");
         commit("resetUser");
+
+        await router.push({ name: "login" });
       } catch (e) {
         console.log(e);
       }

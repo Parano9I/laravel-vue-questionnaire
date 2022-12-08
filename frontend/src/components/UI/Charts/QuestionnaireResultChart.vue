@@ -91,12 +91,10 @@ export default defineComponent({
       );
     },
     chartValues(): object {
-      return (this.data as AnswerInterface[]).map(
-        (item: AnswerInterface) => {
-          data: item.question.answers_avg_point,
-              backgroundColor: useGenerateRandomColor()
-        }
-      );
+      return (this.data as AnswerInterface[]).map((item: AnswerInterface) => ({
+        data: item.question.answers_avg_point,
+        backgroundColor: useGenerateRandomColor(),
+      }));
     },
   },
 });
