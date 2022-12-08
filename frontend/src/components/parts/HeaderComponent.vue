@@ -32,7 +32,7 @@ export default defineComponent({
   },
   computed: {
     isAuth(): boolean {
-      return !!this.store.getters.getUser;
+      return !!this.store.getters.getUser.id;
     },
   },
   methods: {

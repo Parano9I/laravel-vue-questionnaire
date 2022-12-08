@@ -1,6 +1,6 @@
 <template>
   <container-component>
-    <questionnaire-result-chart :data="answers" />
+    <questionnaire-result-chart :data="answers" height="400px" />
   </container-component>
 </template>
 

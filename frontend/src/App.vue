@@ -4,6 +4,7 @@
     <main class="flex-grow-1">
       <router-view />
     </main>
+    <footer-component />
   </div>
 </template>
 
@@ -22,9 +23,10 @@
 <script>
 import HeaderComponent from "@/components/parts/HeaderComponent";
 import { useStore } from "vuex";
+import FooterComponent from "@/components/parts/FooterComponent";
 
 export default {
-  components: { HeaderComponent },
+  components: { FooterComponent, HeaderComponent },
   beforeCreate() {
     const store = useStore();
     store.commit("loadStore");

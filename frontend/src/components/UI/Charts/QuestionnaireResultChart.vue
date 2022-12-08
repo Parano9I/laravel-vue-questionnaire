@@ -4,8 +4,7 @@
     :chart-data="chartData"
     :chart-id="chartId"
     :dataset-id-key="datasetIdKey"
-    :width="width"
-    :height="height"
+    :style="style"
   />
 </template>
 
@@ -37,7 +36,7 @@ interface AnswerInterface {
   question: {
     id: number;
     title: string;
-    answers_avg_point: number;
+    answers_avg_point: string;
   };
   answer: {
     id: number;
@@ -53,6 +52,7 @@ export default defineComponent({
     return {
       chartOptions: {
         responsive: true,
+        maintainAspectRatio: false,
       },
     };
   },
@@ -66,12 +66,12 @@ export default defineComponent({
       default: "label",
     },
     width: {
-      type: Number,
-      default: 200,
+      type: String,
+      default: "",
     },
     height: {
-      type: Number,
-      default: 200,
+      type: String,
+      default: "",
     },
     data: {
       type: Array,
@@ -82,7 +82,7 @@ export default defineComponent({
     chartData(): object {
       return {
         labels: this.chartLabels,
-        datasets: [{ data: this.chartValues }],
+        datasets: [this.chartValues],
       };
     },
     chartLabels(): number[] {
@@ -91,10 +91,25 @@ export default defineComponent({
       );
     },
     chartValues(): object {
-      return (this.data as AnswerInterface[]).map((item: AnswerInterface) => ({
-        data: item.question.answers_avg_point,
+      return {
+        label: "Average point by each answer",
         backgroundColor: useGenerateRandomColor(),
-      }));
+        data: (this.data as AnswerInterface[]).map((item: AnswerInterface) =>
+          this.formattedValue(item.question.answers_avg_point)
+        ),
+      };
+    },
+    style(): object {
+      return {
+        height: this.height,
+        width: this.width,
+        position: "relative",
+      };
+    },
+  },
+  methods: {
+    formattedValue(value: string): number {
+      return parseFloat(parseFloat(value).toFixed(2));
     },
   },
 });
