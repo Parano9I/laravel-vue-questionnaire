@@ -22,6 +22,8 @@ import {
   LinearScale,
 } from "chart.js";
 import useGenerateRandomColor from "@/hooks/generateRandomColorHook";
+import { types } from "sass";
+import Color = types.Color;
 
 ChartJS.register(
   Title,
@@ -93,7 +95,7 @@ export default defineComponent({
     chartValues(): object {
       return {
         label: "Average point by each answer",
-        backgroundColor: useGenerateRandomColor(),
+        backgroundColor: "#9c0730",
         data: (this.data as AnswerInterface[]).map((item: AnswerInterface) =>
           this.formattedValue(item.question.answers_avg_point)
         ),

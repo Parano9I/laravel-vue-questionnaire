@@ -17,4 +17,8 @@ class Questionnaire extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function results(){
+        return $this->hasMany('questionnaires_result');
+    }
 }

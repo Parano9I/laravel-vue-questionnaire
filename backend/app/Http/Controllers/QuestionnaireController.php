@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Contracts\IQuestionnaireService;
 use App\Http\Resources\QuestionnaireResource;
+use App\Http\Resources\QuestionnaireWithResultResource;
+use Illuminate\Http\Request;
 
 class QuestionnaireController extends Controller
 {
@@ -13,13 +15,15 @@ class QuestionnaireController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->questionnaireService->getAll();
+        $user = $request->user();
+
+        $data = $this->questionnaireService->getAllByUser(1);
 
         return response()->json([
             'status' => 'access',
-            'data' => QuestionnaireResource::collection($data),
+            'data' => QuestionnaireWithResultResource::collection($data),
         ]);
     }
 }
