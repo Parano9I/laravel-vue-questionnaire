@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\IQuestionnaireService;
 use App\Exceptions\NotFoundQuestionnaireException;
 use App\Models\Questionnaire;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -19,7 +20,7 @@ class QuestionnaireService implements IQuestionnaireService
         return Questionnaire::all();
     }
 
-    public function getAllByUser($userId): SupportCollection
+    public function getAllByUser(User $user): SupportCollection
     {
         $data = DB::table('questionnaires AS q')
             ->leftJoin(
@@ -36,7 +37,7 @@ class QuestionnaireService implements IQuestionnaireService
                 function (JoinClause $join) {
                     $join->on('qr.questionnaire_id', '=', 'q.id');
                 }
-            )->setBindings([':userId' => $userId])
+            )->setBindings([':userId' => $user->id])
             ->get();
 
         return $data;

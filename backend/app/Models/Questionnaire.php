@@ -18,7 +18,8 @@ class Questionnaire extends Model
         return $this->hasMany(Question::class);
     }
 
-    public function results(){
-        return $this->hasMany('questionnaires_result');
+    public function results()
+    {
+        return $this->hasMany(QuestionnaireResult::class);
     }
 }

@@ -6,7 +6,7 @@
     >
       <slot></slot>
     </router-link>
-    <div v-if="totalScore">
+    <div v-if="hasTotalScore()">
       <span v-if="isVerified">Total score: {{ totalScore }}</span>
       <span v-else>Status: Іs processed</span>
     </div>
@@ -16,6 +16,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { types } from "sass";
+import Null = types.Null;
 
 export default defineComponent({
   name: "QuestionnaireItem",
@@ -30,7 +32,7 @@ export default defineComponent({
     },
     totalScore: {
       type: Number,
-      default: 0.0,
+      required: false,
     },
   },
   computed: {
@@ -39,6 +41,11 @@ export default defineComponent({
     },
     questionnaireResultLink(): string {
       return `/questionnaire/${this.id}/result`;
+    },
+  },
+  methods: {
+    hasTotalScore(): boolean {
+      return this.totalScore !== null;
     },
   },
 });

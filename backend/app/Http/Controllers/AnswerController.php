@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\IAnswerService;
 use App\Contracts\IQuestionnaireService;
+use App\Events\TakingTest;
 use App\Http\Requests\StoreAllAnswerRequest;
 use App\Http\Resources\QuestionnaireResource;
 use App\Http\Resources\QuestionWithAnswerResource;
@@ -26,6 +27,9 @@ class AnswerController extends Controller
 
         $questionnaire = $this->questionnaireService->getById($questionnaireId);
         $this->answerService->createAll($questionnaire, $user, $data);
+
+        event(new TakingTest($user, $questionnaire));
+
 
         return response()->json([
             'status' => 'success'

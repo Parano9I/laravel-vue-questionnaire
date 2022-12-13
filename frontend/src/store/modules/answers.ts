@@ -1,6 +1,7 @@
 import { Module } from "vuex";
 import { AnswerInterface } from "@/interfaces/answers";
 import * as questionnaireApi from "@/services/http/api/questionnaire";
+import router from "@/router";
 
 interface AnswersState {
   questionnaireId: number | null;
@@ -73,6 +74,7 @@ const answersModuleStore: Module<AnswersState, any> = {
         const questionnaireId = getters.getQuestionnaireId;
         const res = questionnaireApi.postAnswers(params, questionnaireId);
         commit("resetAnswers");
+        await router.push({ name: "home" });
       } catch (error) {
         console.log(error);
       }
