@@ -19,7 +19,7 @@ class QuestionnaireController extends Controller
     {
         $user = $request->user();
 
-        $data = $this->questionnaireService->getAllByUser(1);
+        $data = $this->questionnaireService->getAllByUser($user);
 
         return response()->json([
             'status' => 'access',
